@@ -30,4 +30,3 @@ for i in range(n):
     for j in range(m):
         long = max(shark[i][j], long)
 print(long-1)
-
