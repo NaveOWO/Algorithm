@@ -26,3 +26,4 @@ dfs(a,cnt)
 print(ans if ans > 0 else -1)
 
 
+origin = [8,9]

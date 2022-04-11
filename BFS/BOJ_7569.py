@@ -41,7 +41,7 @@ else:
 
     flag = True
     for i in range(H):
-        if flag == False:
+        if not flag:
             break
         for j in range(N):
             if flag == False:
@@ -49,7 +49,7 @@ else:
             for t in range(M):
                 if box[i][j][t] > max_num:
                     max_num = box[i][j][t]
-                if box[i][j][t] == -1:
+                if box[i][j][t] == 0:
                     max_num = -1
                     flag = False
                     break
