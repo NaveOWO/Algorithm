@@ -14,11 +14,10 @@ def solution(priorities, location):
         else:
             priorities_list[int(priorities[i])] += 1
 
-    priorities_list.sort()
     cnt = 0
     while priorities_list:
         for i in range(len(priorities)):
-            if int(priorities[0]) < priorities_list[-1]:
+            if int(priorities[0]) < max(priorities_list):
                 priorities.append(priorities.popleft())
             else:
                 if type(priorities[0]) == str:
@@ -26,7 +25,9 @@ def solution(priorities, location):
                     return cnt
                 else:
                     priorities.popleft()
+                    priorities_list[max(priorities_list)] -= 1
                     cnt += 1
-        priorities_list.pop()
+            if priorities_list[max(priorities_list)] == 0:
+                del (priorities_list[max(priorities_list)])
 
     return cnt
