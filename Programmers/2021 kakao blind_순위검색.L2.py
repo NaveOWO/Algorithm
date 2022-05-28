@@ -52,7 +52,10 @@ def solution(info, query):
         return
 
     for i in range(len(query)):
-        for j in range(len(infoDic)):
+        for j in range(len(info)):
             validate(i, j)
 
+    # print(infoDic)
+    # print("\n")
+    # print(requestDic)
     return result
