@@ -20,4 +20,4 @@ def solution(cacheSize, cities):
                 cache.append(city)
                 runTime += 1
 
-    return runTime + 2
+    return runTime + 3
