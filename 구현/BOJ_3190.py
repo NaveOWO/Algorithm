@@ -7,14 +7,20 @@ for i in range(K):
     box[r][c] = 1
 
 L = int(input())
-head = [0,0]
-tail = [0,0]
+snake = [[0,0]]
 direction = right
 
+game = proceed
 def moveSnake(time):
     for i in range(time):
         if direction == right:
-            head[1] += 1
+            for s in range(len(snake)):
+                if s == 0 and snake[s][1] == N-1:
+                    game = stop
+                    return cnt
+                if s != 0 and snake[s][1] == N-1:
+                    snake[s][]
+                snake[s][1] += 1
         if box[head[0],head[1]] == 1:
             box[head[0],head[1]] = 0
             continue
@@ -25,3 +31,4 @@ def moveSnake(time):
 for i in range(L):
     x, c = map(int, input().split())
     for j in range(x):
+        if
