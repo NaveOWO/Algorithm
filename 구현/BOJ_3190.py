@@ -1,34 +1,59 @@
+from collections import deque
+
 N = int(input())
 K = int(input())
 
-box = [[0 for _ in range(N)] for i in range(N)]
+box = [[0 for _ in range(N+1)] for i in range(N+1)]
+snake = deque([[0,0]])
+snakeHead = [0,0]
+cnt = 0
+
 for i in range(K):
-    c, r = map(int, input().split())
+    r, c = map(int, input().split())
     box[r][c] = 1
 
 L = int(input())
-snake = [[0,0]]
-direction = right
 
-game = proceed
-def moveSnake(time):
-    for i in range(time):
-        if direction == right:
-            for s in range(len(snake)):
-                if s == 0 and snake[s][1] == N-1:
-                    game = stop
-                    return cnt
-                if s != 0 and snake[s][1] == N-1:
-                    snake[s][]
-                snake[s][1] += 1
-        if box[head[0],head[1]] == 1:
-            box[head[0],head[1]] = 0
-            continue
-        tail
+def moveRightSnake():
+    for i in range(snake):
+        snakeHead[1] += 1
+        if snakeHead[1] >= N:
+            return cnt
+        snake.append(snakeHead)
+        if box[snakeHead[0]][snakeHead[1]] != 1:
+            snake.pop()
+
+def moveLeftSnake():
+    for i in range(snake):
+        snakeHead[1] -= 1
+        if snakeHead[1] <= 0:
+            return cnt
+        snake.append(snakeHead)
+        if box[snakeHead[0]][snakeHead[1]] != 1:
+            snake.pop()
+
+def moveUpSnake():
+    for i in range(snake):
+        snakeHead[0] -= 1
+        if snakeHead[0] <= 0:
+            return cnt
+        snake.append(snakeHead)
+        if box[snakeHead[0]][snakeHead[1]] != 1:
+            snake.pop()
+
+def moveDownSnake():
+    for i in range(snake):
+        snakeHead[0] += 1
+        if snakeHead[0] >= N:
+            return cnt
+        snake.append(snakeHead)
+        if box[snakeHead[0]][snakeHead[1]] != 1:
+            snake.pop()
 
 
-
+endTime = 0
 for i in range(L):
-    x, c = map(int, input().split())
-    for j in range(x):
-        if
+    x, y = map(int, input().split())
+    continueTime = x - endTime
+    for j in range(continueTime):
+        moveSnake()
