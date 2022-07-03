@@ -40,22 +40,22 @@ for i in range(K):
     print(r,c)
     if r >= N or r < 0 or c >= M or c < 0:
         continue
+    print(dice)
     if mapBoard[r][c] == 0:
         if orderList[i] == 1 or orderList[i] == 4:
-            mapBoard[r][c] = dice['upDown'][0]
+            mapBoard[r][c] = dice['upDown'][1]
             topNum = dice['upDown'][0]
         else:
-            mapBoard[r][c] = dice['upDown'][1]
+            mapBoard[r][c] = dice['upDown'][0]
             topNum = dice['upDown'][1]
     else:
         if orderList[i] == 1 or orderList[i] == 4:
-            dice['upDown'][0] = mapBoard[r][c]
+            dice['upDown'][1] = mapBoard[r][c]
             topNum = dice['upDown'][0]
         else:
-            dice['upDown'][1] = mapBoard[r][c]
+            dice['upDown'][0] = mapBoard[r][c]
             topNum = dice['upDown'][1]
         mapBoard[r][c] = 0
     print(topNum)
-    print(dice)
 
 
