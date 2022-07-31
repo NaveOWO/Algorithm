@@ -27,4 +27,4 @@ def solution(lines):
 
     print(lines)
 
-    return None
+    return 0
