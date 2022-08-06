@@ -21,10 +21,32 @@ def solution(lines):
         lines[i][1] = Decimal(lines[i][1][:-1])
         lines[i].append(getStartPoint(lines[i][0], lines[i][1]))
 
+    startList = []
+    for i in range(len(lines)):
+        startList.append(lines[i][2][0:2])
+    startList.sort(key=lambda x: (x[0], x[1], x[2]))
+    endList = []
+    for i in range(len(lines)):
+        endList.append(lines[i][0][0:2])
+    endList.sort(key=lambda x: (-x[0], -x[1], -x[2]))
+
+    startPoint = startList[0]
+    endPoint = endList[0]
+
     timeDict = {}
-    for i in range(lines):
-        for j in range(lines[i][1]):
+    currentTime = startPoint
+    while True:
+        if currentTime == endPoint:
+            break
+        if currentTime[1] == 59:
+            currentTime[0] += 1
+            currentTime[1] = 0
+        else:
+            currentTime[1] += 1
+        afterTime = current
+        for i in range(len(lines)):
+            if currentTime[0]
 
     print(lines)
 
-    return 0
+    return None
