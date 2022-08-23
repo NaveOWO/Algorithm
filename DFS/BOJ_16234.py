@@ -11,19 +11,20 @@ for i in range(N):
 # 위의 과정을 할때마다 cnt를 올린다
 # 1번조건이 한번이라도 맞으면 flag에 변화주기
 
-unionMap = [[0 for _ in range(N)] for _ in range(N)]
+unionMap = [[-1 for _ in range(N)] for _ in range(N)]
 global flag
 flag = True
 dr = [-1,0,1,0]
 dc = [0,1,0,-1]
-def getUnionMap(r,c,visit,changeList):
+def getUnionMap(r,c,visit,changeList, unionNum):
     global flag
     global unionMap
-    visit = [[0 for _ in range(N)] for _ in range(N)]
+    # visit = [[0 for _ in range(N)] for _ in range(N)]
     nations = deque()
     nations.append((r,c))
     while nations:
         r, c = nations.popleft()
+        unionMap[r][c] = unionNum
         visit[r][c] = 1
         for i in range(4):
             nr = r + dr[i]
@@ -31,11 +32,11 @@ def getUnionMap(r,c,visit,changeList):
             if nr < 0 or nc < 0 or nr >= N or nc >= N or visit[nr][nc] == 1:
                 continue
             if L <= abs(populationMap[r][c] - populationMap[nr][nc]) <= R:
-                unionMap[nr][nc] = unionMap[r][c]
+                unionMap[nr][nc] = unionNum
                 nations.append((nr,nc))
                 visit[nr][nc] = 1
                 changeList.append((nr,nc))
-    return [unionMap, changeList]
+    return changeList
 
 def getSumPopulation(r,c,visit):
     searchNation = deque()
@@ -66,13 +67,16 @@ def refillPopulationMap(nations,currentPop):
 
 totalChange = 0
 while True:
-    beforeVisit = [[-1 for _ in range(N)] for _ in range(N)]
+    beforeVisit = [[0 for _ in range(N)] for _ in range(N)]
     changeList = []
+    unionNum = 0
     for i in range(N):
         for j in range(N):
             if beforeVisit[i][j] == 0:
-                unionMap, changeList = getUnionMap(i,j,beforeVisit, changeList )
-                print(changeList)
+                changeList = getUnionMap(i,j,beforeVisit, changeList, unionNum )
+                unionNum += 1
+                # print(unionMap, i, j)
+                # print(changeList)
     if len(changeList) == 0:
         break
     afterVisit = [[0 for _ in range(N)] for _ in range(N)]
@@ -81,14 +85,14 @@ while True:
             if afterVisit[i][j] == 0:
                 currentPop, afterVisit, nations = getSumPopulation(i,j,afterVisit)
                 refillPopulationMap(nations,currentPop)
-    if flag == False:
+    if not flag:
         break
 
     totalChange += 1
-    print("union")
-    for i in range(len(unionMap)):
-        print(unionMap[i])
-    print("pop")
-    for i in range(len(populationMap)):
-        print(populationMap[i])
+    # print("union")
+    # for i in range(len(unionMap)):
+    #     print(unionMap[i])
+    # print("pop")
+    # for i in range(len(populationMap)):
+    #     print(populationMap[i])
 print(totalChange)
