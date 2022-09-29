@@ -1,49 +1,56 @@
-import re
+from itertools import permutations
 
 
 def solution(expression):
-    operator = ['*', '+', '-']
-    currentOp = []
-    combi = {3: [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]], 2: [[0, 1], [1, 0]]}
-    global splitedExpression
-    splitedExpression = re.split('([-|+|*])', expression)
+    global originStr
+    operators = []
     answer = 0
+    for letter in expression:
+        if letter.isdigit() == False and letter not in operators:
+            operators.append(letter)
 
-    def getSingleResult(prevNum, sign, nextNum):
-        if sign == '*':
-            return prevNum * nextNum
+    combis = list(permutations(operators, len(operators)))
+
+    def splitExpression(originExpression):
+        result = [[]]
+        for letter in originExpression:
+            if letter.isdigit() == True:
+                result[-1].append(letter)
+            else:
+                result.append([])
+                result[-1].append(letter)
+                result.append([])
+        for i in range(len(result)):
+            result[i] = ''.join(result[i])
+        return result
+
+    originStr = splitExpression(expression)
+
+    def culculate(sign, x, y):
         if sign == '+':
-            return prevNum + NextNum
+            return x + y
         if sign == '-':
-            return prevNum - NextNum
+            return x - y
+        if sign == '*':
+            return str(x * y)
 
-    def getTotalResult(signs):
-        global splitedExpression
-        i = 0
-        while True:
-            sign = signs[2]
-            tempStr = []
-            for i in range(len(splitedExpression)):
-                if i != 0 and splitedExpression[i - 1] == sign:
-                    continue
-                if expression[i] == sign:
-                    result = getSingleResult(int(splitedExpression[i - 1]), splitedExpression[i],
-                                             int(splitedExpression[i + 1]))
-                    tempStr.pop()
-                    tempStr.append(result)
-                    continue
-                tempStr.append(splitedExpression[i])
-            if i == len(signs) - 1:
-                break
-            i += 1
-            splitedExpression = tempStr
+    def getParticularResult(sign):
+        global originStr
+        tempStr = []
+        for i in range(len(originStr)):
+            if originStr[i] == sign:
+                result = culculate(sign, int(tempStr.pop()), int(originStr[i + 1]))
+                tempStr.append(result)
+                continue
+            if i != 0 and originStr[i - 1] == sign:
+                continue
+            tempStr.append(originStr[i])
+        originStr = tempStr
 
-    for letter in splitedExpression:
-        if letter in operator and letter not in currentOp:
-            currentOp.append(letter)
-    term = len(currentOp)
-
-    for i in range(len(combi[term])):
-        answer = max(answer, abs(getTotalResult(combi[term][i])))
-
-    return splitedExpression
+    for i in range(len(combis)):
+        currentOrder = combis[i]
+        originStr = splitExpression(expression)
+        for operator in currentOrder:
+            getParticularResult(operator)
+        answer = max(answer, abs(int(originStr[0])))
+    return answer
