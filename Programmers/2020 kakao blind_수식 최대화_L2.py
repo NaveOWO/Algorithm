@@ -53,4 +53,4 @@ def solution(expression):
         for operator in currentOrder:
             getParticularResult(operator)
         answer = max(answer, abs(int(originStr[0])))
-    return answer+1
+    return answer
