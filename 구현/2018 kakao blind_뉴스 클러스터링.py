@@ -43,7 +43,7 @@ def solution(str1, str2):
         answer = 65536
     else:
         answer = math.trunc(inter / union * 65536)
-    return answer
+    return None
 
 
 
