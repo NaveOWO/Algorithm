@@ -66,6 +66,42 @@ def play_hangman():
 
 play_hangman()
 
+MAX_GUESSES = 0
+if (len(secret_word) < 4):
+    MAX_GUESSES = 12
+elif (4 <= len(secret_word) < 8):
+    MAX_GUESSES = 6
+elif (8 <= len(secret_word)):
+    MAX_GUESSES = 5
+
+if MAX_GUESSES == 12:
+    print('easy')
+elif MAX_GUESSES == 6:
+    print('medium')
+elif MAX_GUESSES == 5:
+    print('hard')
+
+
+def decide_level(level):
+    while True:
+        index = randrange(0,len(wordlist))
+        if level == "easy":
+            if len(wordlist[index]) < 4:
+                word = wordlist[index]
+                break
+        elif level == "medium":
+            if 4 <= len(wordlist[index]) < 8:
+                word = wordlist[index]
+                break
+        elif level == "hard":
+            if len(wordlist[index])>= 8:
+                word = wordlist[index]
+                break
+    return
+
+level = input()
+
+
 
 
 
